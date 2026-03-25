@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: splittrail_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: splittrail_root
+      MYSQL_DATABASE: splittrail
+      MYSQL_USER: splittrail_user
+      MYSQL_PASSWORD: splittrail_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
