@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.mysql import CHAR
 from app.database import Base
@@ -19,8 +19,8 @@ class Group(Base):
 class GroupMember(Base):
     __tablename__ = "group_members"
 
-    group_id = Column(CHAR(36), primary_key=True)
-    user_id = Column(CHAR(36), primary_key=True)
+    group_id = Column(CHAR(36), ForeignKey("groups.id"), primary_key=True)
+    user_id = Column(CHAR(36), ForeignKey("users.id"), primary_key=True)
     joined_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
     group = relationship("Group", back_populates="members")
