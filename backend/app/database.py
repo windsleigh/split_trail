@@ -13,3 +13,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def create_tables():
+    from app.models.user import User
+    from app.models.group import Group, GroupMember
+    from app.models.expense import Expense, ExpenseSplit
+    from app.models.settlement import Settlement
+    Base.metadata.create_all(bind=engine)

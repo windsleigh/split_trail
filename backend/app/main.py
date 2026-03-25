@@ -1,7 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.database import create_tables
+from contextlib import asynccontextmanager
 
-app = FastAPI(title="SplitTrail", version="0.1.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_tables()
+    yield
+
+app = FastAPI(title="SplitTrail", version="0.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
