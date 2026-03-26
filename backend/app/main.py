@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import create_tables
 from app.routes.auth import router as auth_router
 from app.routes.groups import router as groups_router
+from app.routes.expenses import router as expenses_router
+from app.routes.balances import router as balances_router
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
@@ -22,6 +24,8 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(groups_router)
+app.include_router(expenses_router)
+app.include_router(balances_router)
 
 @app.get("/health")
 def health_check():
